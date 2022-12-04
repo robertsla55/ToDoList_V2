@@ -6,28 +6,239 @@
 <title>Título da página</title>
 </head>
 <body>
-<section class="acaixa" >
-<div class="caixa">
-<h1>
-Registre-se
-</h1>
-<form>
-<label for="gmail">E-mail</label>
-<input type="email" name="gmail" placeholder="Digite seu E-mail">
-<label for="pnome">Name</label>
-<input type="text" name="nome" placeholder="Digite seu nome">
-<label for="nick">Nickname:</label>
-<input type="text" name="nick" placeholder="Digite seu sobrenome">
-<label for="snh">Senha</label>
-<input type="password" name="snh" placeholder="Digite sua senha">
-<label for="snhconf">Confirmar senha</label>
-<input type="password" name="snhconf" placeholder="Comfirme sua senha">
-<input type="submit" value="Registrar" onclick="logar()">
-<p>Já tem conta? <a href="index.html">Entrar</a></p>																							
-						
-</form>
-</div>
+    <style>.container{
+        padding: 30px 40px;
+        width: 35%;
+        min-width: 500px;
+    }
+
+    .new-task-container input:focus{
+        outline: none;
+        border-color: rgb(122, 179, 36);
+    }
+    .new-task-container{
+        background-color: rgb(255, 255, 255);
+        padding: 30px 20px;
+        border-radius: 5px;
+        box-shadow: rgb(19, 167, 98);
+        display: flex;
+    }
+    .new-task-container input{
+        flex: 3;
+        font-size: 1rem;
+        border: 2px solid #1298db;
+        border-radius: 5px;
+        padding: 12px;
+        font-weight: 500;
+    }
+    .new-task-button {
+        flex: 1;
+        border-radius: 5px;
+        font-weight: 500;
+        height: 100%;
+        font-size: 1rem;
+        border: none;
+        background-color: rgb(255, 94, 0);
+        color: rgb(255, 238, 0);
+        padding: 12px;
+        margin-left: 12px;
+        cursor: pointer;
+    }
+    .tasks-container{
+        background-color: white;
+        padding: 20px 20px;
+        margin-top: 60px;
+        border-radius: 10px;
+        box-shadow: 0 15px 30px rgb(21, 146, 109);
+        width: 100%;
+    }
+    .new-task-checkbox {
+
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+
+    }
+
+/*aaaaa */
+    .error {
+        border: 2px solid red !important;
+    }
+
+    .error::placeholder{
+        color: red;
+    }
+
+    .riscado{
+        text-decoration: line-through;
+    }
+
+    /* /aaaaa */
+
+    .item{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom:  6px;
+        margin-top: 6px;
+    }
+
+    .item a {
+        background-color: rgb(255, 0, 0);
+        color: white;
+        padding: 12px;
+        border-radius: 5px;
+    }
+    #ctds p{
+        color: white;
+    }
+    </style>
+<section class="acaixa">
+    <div class="caixa">
+        <h1>Registre-se</h1>
+        <form>
+            <label for="gmail">E-mail</label>
+            <input type="email" name="gmail" placeholder="Digite seu E-mail">
+            <label for="pnome">Name</label>
+            <input type="text" name="nome" placeholder="Digite seu nome">
+            <label for="nick">Nickname:</label>
+            <input type="text" name="nick" placeholder="Digite seu sobrenome">
+            <label for="snh">Senha</label>
+            <input type="password" name="snh" placeholder="Digite sua senha">
+            <label for="snhconf">Confirmar senha</label>
+            <input type="password" name="snhconf" placeholder="Comfirme sua senha">
+            <input value="Registrar" type="submit" onclick="logar(); return false">																							
+                                
+        </form>
+    </div>
 </section>
+<div id="menu">
+    <div  onclick="document.getElementById('ctds').style.display = 'block'; document.getElementsByClassName('container')[0].style.display = 'none';">
+        <h3>Exibir Dados</h3>
+    </div>
+    <div  onclick="document.getElementById('ctds').style.display = 'none'; document.getElementsByClassName('container')[0].style.display = 'block';">
+        <h3>Exibir ToDoList</h3>
+    </div>
+</div>
+<div class="container" style="margin:auto;">
+    <div class="new-task-container">
+        <input type="text" class="new-task-input" placeholder="Adicionar Tarefa">
+        <button class="new-task-button" >Adicionar</button>
+    </div>
+    
+    <div class="tasks-container">
+    
+    </div>
+</div>
+<div id="ctds" style="display: none; margin: auto; margin-top: 40px; color: white;">
+    <h2 style="text-align: center; margin-bottom: 10px;">Dados Inseridos</h2>
+    <p id="email">Email: </p>
+    <p id="name">Nome: </p>
+    <p id="senha">Senha: </p>
+    <p id="nickname">Nickname: </p>
+</div>
+<script>
+    
+    const addCheck = document.createElement('input');
+        addCheck.setAttribute("type", "checkbox")
+        const inputElement = document.querySelector(".new-task-input");    
+        const addTaskButton = document.querySelector(".new-task-button");
+        const addTaskcheckbox = document.querySelector(".new-task-checkbox");
+
+        const tasksContainer = document.querySelector('.tasks-container')
+
+        const validateInput = () => inputElement.value.trim().length > 0;
+        
+
+        const handleAddTask = () => {
+            const inputIsValid = validateInput();
+
+            if (!inputIsValid) {
+                return inputElement.classList.add("error");
+            }
+
+            const taskItemContainer = document.createElement("div");
+            taskItemContainer.classList.add("item");
+
+            const taskContent = document.createElement("p");
+            taskContent.innerText = inputElement.value;
+            
+            taskContent.addEventListener("click", () => handleClick(taskContent))
+
+            
+
+            const deleteItem = document.createElement("a");
+            deleteItem.innerHTML = "X"
+
+            // ao clicar em cima da palavra, ou da caixa, a tarefa fica como "ok"
+            // criar caixa a frente do item da lista
+        
+
+            
+            deleteItem.addEventListener("click", () => 
+            handleDeleteClick(taskItemContainer, taskContent)
+            );
+            
+            taskItemContainer.appendChild(taskContent);
+            taskItemContainer.appendChild(deleteItem);
+
+            tasksContainer.appendChild(taskItemContainer);
+            
+
+            inputElement.value = "";
+
+        };
+
+        const handleClick = (conteudo) => {
+            const tasks = tasksContainer.childNodes;
+
+            
+
+            for (const task of tasks) {
+
+                if ((task.firstChild)===(conteudo)) {
+                    
+                    
+                    task.firstChild.classList.toggle("riscado");
+
+                }
+            }
+        };
+
+        const handleDeleteClick = (taskItemContainer, taskContent) => {
+            const tasks = tasksContainer.childNodes;
+
+            for (const task of tasks) {
+                if ((task.firstChild)===(taskContent)) {
+                    taskItemContainer.remove();
+                }
+            }
+        };
+
+
+
+        const handleInputChange = () => {
+            const inputIsValid = validateInput();
+
+            if (inputIsValid) {
+                return inputElement.classList.remove('error');
+            }
+        };
+
+        
+
+        addTaskButton.addEventListener("click", () => handleAddTask())
+
+        inputElement.addEventListener('change', () => handleInputChange())
+</script>
 <script src="java.js"></script>
 </body>
 </html>

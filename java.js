@@ -1,3 +1,4 @@
+// const { NOT } = require("sequelize/types/deferrable");
 
 function logar() {
 		var email = document.getElementsByName('gmail')[0].value;
@@ -10,13 +11,16 @@ function logar() {
 			alert("As senhas estão iguais")
 			if (nome.length < 10){
 				alert("O nome deve possuir mais de 10 letras");
+				falhas += 1
 			}
 			else{
 				if (nickname.length > 10){
+					falhas += 1;
 					alert("O nickname deve possuir menos de 10 letras");
 				}else{
 					//aqui já terá tds os procvedimentos verificados
-					alert("foi")
+					falhas = 0;
+					
 				}
 		
 			}
@@ -24,9 +28,16 @@ function logar() {
 			alert("As senhas estão diferentes.")
 			falhas += 1;
 		}
-		
-		if (nickname.length > 10){
-			alert("O nickname deve possuir menos de 10 letras");
-		}
 
+
+	
+if (email != null && senha != null && nickname != null && nome != null && falhas == 0){
+	document.getElementsByClassName("acaixa")[0].style.display = "none";
+	document.getElementById("email").innerHTML += email;
+	document.getElementById("name").innerHTML += nome;
+	document.getElementById("senha").innerHTML += senha;
+	document.getElementById("nickname").innerHTML += nickname;
+
+	
 }
+	}

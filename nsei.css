@@ -4,19 +4,21 @@
 				box-sizing: border-box;
 				font-family: Helvetica;
 				border: none;
-				color: whitesmoke;
+				
 				
 }
 body {
-				background-color: #000020;
+				background-color: #000000;
 				overflow: hidden;
+				color: whitesmoke;
 				
 }
 .acaixa{
 				display: flex;
-				height: 100vh;
+				height: 110vh;
 				justify-content: center;
 				align-items: center;
+				
 }
 .caixa{
 				background: #000000;
@@ -59,6 +61,7 @@ p{
 				text-align: center;
 				text-justify: center;
 				padding-top: 10px;
+				color: black;
 				
 }
 a{
@@ -69,3 +72,20 @@ a{
 				font-weight: bold;
 }
 
+#menu{
+    display: flex;
+    text-align: right;
+    justify-content: flex-end;
+}
+#menu div{
+    border: 1px solid gray;
+	padding: 4px;
+	color: #000000;
+	border-radius: 6px;
+	background-color: white;
+}
+#menu div:hover{
+	background: #000020;
+	color: white;
+	cursor: pointer;
+}
